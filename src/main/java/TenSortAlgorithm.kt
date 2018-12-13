@@ -86,8 +86,51 @@ object TenSortAlgorithm {
                 arr[j + len] = temp
 
             }
-            len = Math.floorDiv(len,3)
+            len = Math.floorDiv(len, 3)
         }
+        return arr
+    }
+
+    // 归并排序
+    fun mergeSort(arr: IntArray): IntArray {
+        if (arr.size == 1) {
+            return arr
+        }
+        var rightArr = IntArray(arr.size - arr.size / 2)
+
+        for (i in arr.size / 2 + 1..(arr.size - 1)) {
+            rightArr[i - arr.size / 2 - 1] = arr[i]
+        }
+        var leftArr = IntArray(arr.size / 2)
+
+        for (i in 0..arr.size / 2) {
+            leftArr[i] = arr[i]
+        }
+
+        return merge(mergeSort(leftArr), mergeSort(rightArr))
+    }
+
+
+    fun merge(headArr: IntArray, tailArr: IntArray): IntArray {
+
+        var arr = IntArray(headArr.size + tailArr.size)
+
+        var headIndex = 0
+        var tailIndex = 0
+
+        while (headIndex < headArr.size || tailIndex < tailArr.size) {
+            var index = 0
+            if (headIndex < headArr.size && headArr[headIndex] < tailArr[tailIndex]) {
+                arr[index] = headArr[headIndex]
+                headIndex++
+            } else {
+                arr[index] = tailArr[headIndex]
+                tailIndex++
+            }
+            index++
+
+        }
+
         return arr
     }
 }
