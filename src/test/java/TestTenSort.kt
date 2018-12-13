@@ -31,5 +31,10 @@ class TestTenSort {
         TenSortAlgorithm.mergeSort(TenSortAlgorithm.testArr).print()
     }
 
+    @Test
+    fun testQuickSort() {
+        TenSortAlgorithm.quickSort(TenSortAlgorithm.testArr).print()
+    }
+
 
 }

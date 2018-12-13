@@ -111,7 +111,7 @@ object TenSortAlgorithm {
     }
 
 
-    fun merge(headArr: IntArray, tailArr: IntArray): IntArray {
+    private fun merge(headArr: IntArray, tailArr: IntArray): IntArray {
 
         var arr = IntArray(headArr.size + tailArr.size)
 
@@ -133,6 +133,37 @@ object TenSortAlgorithm {
 
         return arr
     }
+
+    // 归并排序
+    fun quickSort(arr: IntArray): IntArray {
+        if (arr.size < 2)
+            return arr
+        var leftArr = ArrayList<Int>()
+        var rightArr = ArrayList<Int>()
+        for (index in 1 until arr.size) {
+            if (arr[index] > arr[0]) {
+                rightArr.add(arr[index])
+            } else {
+                leftArr.add(arr[index])
+            }
+        }
+
+        return mergeOfQuick(quickSort(leftArr.toIntArray()), quickSort(rightArr.toIntArray()), arr[0])
+    }
+
+    private fun mergeOfQuick(leftArr: IntArray, rightArr: IntArray, middle: Int): IntArray {
+
+        var arr = IntArray(leftArr.size + rightArr.size + 1)
+        for (index in 0 until leftArr.size) {
+            arr[index] = leftArr[index]
+        }
+        arr[leftArr.size] = middle
+        for (index in 0 until rightArr.size) {
+            arr[leftArr.size + index + 1] = rightArr[index]
+        }
+        return arr
+    }
+
 }
 
 fun IntArray.print() {
