@@ -36,5 +36,11 @@ class TestTenSort {
         TenSortAlgorithm.quickSort(TenSortAlgorithm.testArr).print()
     }
 
+    @Test
+    fun testHeapSort() {
+        TenSortAlgorithm.heapSort(TenSortAlgorithm.testArr).print()
+    }
+
+
 
 }

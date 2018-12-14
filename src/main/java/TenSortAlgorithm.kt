@@ -134,7 +134,7 @@ object TenSortAlgorithm {
         return arr
     }
 
-    // 归并排序
+    // 快速排序
     fun quickSort(arr: IntArray): IntArray {
         if (arr.size < 2)
             return arr
@@ -164,6 +164,66 @@ object TenSortAlgorithm {
         return arr
     }
 
+    // 堆排序
+    fun heapSort(arr: IntArray): IntArray {
+        var len = arr.size
+        buildMaxHeap(arr)
+        for (i in 0 until arr.size) {
+            swapItem(arr, 0, len - 1)
+            len--
+            rebuild(arr, 0, len)
+        }
+        return arr
+    }
+
+    private fun buildMaxHeap(arr: IntArray) {
+        for (i in arr.size / 2 downTo  0) {
+            rebuild(arr, i, arr.size)
+        }
+    }
+
+    private fun rebuild(arr: IntArray, startIndex: Int, len: Int) {
+        var root = startIndex
+        var left = startIndex * 2 + 1
+        var right = startIndex * 2 + 2
+
+
+        if (left < len && arr[left] > arr[root]) {
+            when {
+                right >= len -> {
+                    swapItem(arr, startIndex, left)
+                    rebuild(arr, left, len)
+                }
+                arr[left] > arr[right] -> {
+                    swapItem(arr, startIndex, left)
+                    rebuild(arr, left, len)
+                }
+                else -> {
+                    swapItem(arr, startIndex, right)
+                    rebuild(arr, right, len)
+                }
+            }
+        } else if (right < len && arr[right] > arr[root]) {
+            swapItem(arr, startIndex, right)
+            rebuild(arr, right, len)
+        }
+
+
+    }
+
+    private fun swapItem(arr: IntArray, firstNum: Int, second: Int) {
+        var temp = arr[firstNum]
+        arr[firstNum] = arr[second]
+        arr[second] = temp
+    }
+
+    // 计数排序
+    fun countSort(arr: IntArray): IntArray {
+
+        
+
+        return arr
+    }
 }
 
 fun IntArray.print() {
