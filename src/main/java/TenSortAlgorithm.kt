@@ -177,7 +177,7 @@ object TenSortAlgorithm {
     }
 
     private fun buildMaxHeap(arr: IntArray) {
-        for (i in arr.size / 2 downTo  0) {
+        for (i in arr.size / 2 downTo 0) {
             rebuild(arr, i, arr.size)
         }
     }
@@ -219,9 +219,19 @@ object TenSortAlgorithm {
 
     // 计数排序
     fun countSort(arr: IntArray): IntArray {
-
-        
-
+        var assembleArr = Array<ArrayList<Int>>(100) {ArrayList()}
+        for (i in 0 until arr.size) {
+            assembleArr[arr[i]].add(arr[i])
+        }
+        var index = 0
+        for (i in 0 until assembleArr.size) {
+            if (assembleArr[i] != null) {
+                for (j in 0 until assembleArr[i].size) {
+                    arr[index] = assembleArr[i][j]
+                    index++
+                }
+            }
+        }
         return arr
     }
 }
