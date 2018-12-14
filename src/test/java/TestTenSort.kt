@@ -51,6 +51,11 @@ class TestTenSort {
         TenSortAlgorithm.bucketSort(TenSortAlgorithm.testArr).print()
     }
 
+    @Test
+    fun radixSort() {
+        TenSortAlgorithm.radixSort(TenSortAlgorithm.testArr).print()
+    }
+
 
 
 }

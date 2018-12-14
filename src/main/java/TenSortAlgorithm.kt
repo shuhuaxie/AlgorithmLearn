@@ -265,6 +265,33 @@ object TenSortAlgorithm {
         return arr
     }
 
+    // 基数排序
+    fun radixSort(arr: IntArray): IntArray {
+        var bucket = Array(10) { ArrayList<Int>() }
+        for (i in 0 until arr.size) {
+            bucket[arr[i] % 10].add(arr[i])
+        }
+        var index = 0
+        for (i in 0 until bucket.size) {
+            for (j in 0 until bucket[i].size) {
+                arr[index] = bucket[i][j]
+                index++
+            }
+        }
+        bucket = Array(10) { ArrayList<Int>() }
+        for (i in 0 until arr.size) {
+            bucket[arr[i] / 10].add(arr[i])
+        }
+        index = 0
+        for (i in 0 until bucket.size) {
+            for (j in 0 until bucket[i].size) {
+                arr[index] = bucket[i][j]
+                index++
+            }
+        }
+        return arr
+    }
+
 }
 
 fun IntArray.print() {
