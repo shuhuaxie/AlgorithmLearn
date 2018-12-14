@@ -1,3 +1,5 @@
+import java.util.*
+
 object TenSortAlgorithm {
     /**
      *  参考自 @link https://www.cnblogs.com/onepixel/articles/7674659.html
@@ -219,7 +221,7 @@ object TenSortAlgorithm {
 
     // 计数排序
     fun countSort(arr: IntArray): IntArray {
-        var assembleArr = Array<ArrayList<Int>>(100) {ArrayList()}
+        var assembleArr = Array<ArrayList<Int>>(100) { ArrayList() }
         for (i in 0 until arr.size) {
             assembleArr[arr[i]].add(arr[i])
         }
@@ -234,6 +236,35 @@ object TenSortAlgorithm {
         }
         return arr
     }
+
+    // 桶排序
+    fun bucketSort(arr: IntArray): IntArray {
+        var bucket = Array(10) { LinkedList<Int>() }
+
+        for (i in 0 until arr.size) {
+            if (bucket[arr[i] / 10].size > 0) {
+
+                loop@ for (j in 0 until bucket[arr[i] / 10].size) {
+                    if (arr[i] < bucket[arr[i] / 10][j]) {
+                        bucket[arr[i] / 10].add(j, arr[i])
+                        break@loop
+                    }
+                }
+            } else {
+                bucket[arr[i] / 10].addFirst(arr[i])
+            }
+        }
+        var index = 0
+        for (i in 0 until bucket.size) {
+            for (j in 0 until bucket[i].size) {
+                arr[index] = bucket[i][j]
+                index++
+            }
+        }
+
+        return arr
+    }
+
 }
 
 fun IntArray.print() {
