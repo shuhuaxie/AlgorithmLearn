@@ -10,6 +10,12 @@ object TenSortAlgorithm {
             3, 44, 38, 5, 47,
             15, 36, 26, 27, 2,
             46, 4, 19, 50, 48)
+    var testArrWithEqual = intArrayOf(
+            3, 44, 38, 5, 47,
+            15, 36, 26, 27, 2,
+            46, 4, 19, 50, 48,
+            2, 38, 55, 44, 44,
+            44, 55)
 
     // 冒泡排序 从最小的开始排
     fun bubbleSort1(arr: IntArray): IntArray {
@@ -136,12 +142,79 @@ object TenSortAlgorithm {
         return arr
     }
 
+    fun quickSort2(arr: IntArray): IntArray {
+        return quickSort2(arr, 0, arr.size - 1)
+    }
+
+    private fun quickSort2(arr: IntArray, start: Int, end: Int): IntArray {
+        var startIndex = start
+        var endIndex = end - 1
+        var equalNum = 0
+        // compare
+        while (startIndex < endIndex) {
+            when {
+                (arr[startIndex] == arr[end]) -> {
+                    equalNum++
+                    val temp = arr[startIndex]
+                    arr[startIndex] = arr[end - equalNum]
+                    arr[end - equalNum] = temp
+                    if (endIndex == end - equalNum) {
+                        endIndex--
+                    }
+                }
+                (arr[startIndex] < arr[end]) -> {
+                    startIndex++
+                }
+                (arr[endIndex] == arr[end]) -> {
+                    equalNum++
+                    if (endIndex != end - equalNum) {
+                        val temp = arr[endIndex]
+                        arr[endIndex] = arr[end - equalNum]
+                        arr[end - equalNum] = temp
+                    }
+                    endIndex--
+                }
+                (arr[endIndex] > arr[end]) -> {
+                    endIndex--
+                }
+                else -> {
+                    val temp = arr[startIndex]
+                    arr[startIndex] = arr[endIndex]
+                    arr[endIndex] = temp
+                }
+            }
+        }
+        // compare and next
+        if (arr[startIndex] > arr[end]) {
+            var endChangeIndex = 0
+            while (equalNum > -1) {
+                val temp = arr[endIndex]
+                arr[endIndex] = arr[end - endChangeIndex]
+                arr[end - endChangeIndex] = temp
+                equalNum--
+                endIndex++
+                endChangeIndex++
+            }
+
+            if (startIndex - start > 1)
+                quickSort2(arr, start, startIndex - 1)
+            if (end - endIndex > 0)
+                quickSort2(arr, endIndex, end)
+        } else {
+            endIndex = end
+            endIndex -= equalNum
+            if (endIndex - start > 1)
+                quickSort2(arr, start, endIndex - 1)
+        }
+        return arr
+    }
+
     // 快速排序
     fun quickSort(arr: IntArray): IntArray {
         if (arr.size < 2)
             return arr
-        var leftArr = ArrayList<Int>()
-        var rightArr = ArrayList<Int>()
+        val leftArr = ArrayList<Int>()
+        val rightArr = ArrayList<Int>()
         for (index in 1 until arr.size) {
             if (arr[index] > arr[0]) {
                 rightArr.add(arr[index])
@@ -155,7 +228,7 @@ object TenSortAlgorithm {
 
     private fun mergeOfQuick(leftArr: IntArray, rightArr: IntArray, middle: Int): IntArray {
 
-        var arr = IntArray(leftArr.size + rightArr.size + 1)
+        val arr = IntArray(leftArr.size + rightArr.size + 1)
         for (index in 0 until leftArr.size) {
             arr[index] = leftArr[index]
         }
